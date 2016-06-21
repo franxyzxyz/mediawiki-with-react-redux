@@ -1,0 +1,45 @@
+{
+  "name": "mediawiki-with-react-redux",
+  "version": "1.0.0",
+  "description": "SPA with react, redux, mediawiki api and more",
+  "main": "webpack.config.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "webpack",
+    "bundle": "webpack-dev-server",
+    "start": "node app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/franxyzxyz/mediawiki-with-react-redux.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/franxyzxyz/mediawiki-with-react-redux/issues"
+  },
+  "homepage": "https://github.com/franxyzxyz/mediawiki-with-react-redux#readme",
+  "dependencies": {
+    "babel-loader": "^6.2.4",
+    "babel-polyfill": "^6.9.1",
+    "css-loader": "^0.23.1",
+    "express": "^4.14.0",
+    "file-loader": "^0.9.0",
+    "node-sass": "^3.8.0",
+    "react": "^15.1.0",
+    "react-redux": "^4.4.5",
+    "redux": "^3.5.2",
+    "redux-thunk": "^2.1.0",
+    "sass-loader": "^3.2.1",
+    "style-loader": "^0.13.1"
+  },
+  "devDependencies": {
+    "babel-preset-es2015": "^6.9.0",
+    "babel-preset-react": "^6.5.0",
+    "babel-preset-react-hmre": "^1.1.1",
+    "npm-install-webpack-plugin": "^4.0.3",
+    "react-hot-loader": "^1.3.0",
+    "webpack": "^1.13.1",
+    "webpack-dev-server": "^1.14.1"
+  }
+}
