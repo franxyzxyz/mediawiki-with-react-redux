@@ -1,3 +1,5 @@
+$norm-speed: 0.2s ease-in;
+
 body {
   font-family: 'League Spartan', sans-serif;
   background: rgba(0,0,0,0.1);
@@ -18,6 +20,10 @@ h1 {
   .pageNav {
     background: orange;
     width: 30vw;
+    h2{
+      padding-left: 20px;
+      letter-spacing: 2px;
+    }
   }
   .pageContent {
     padding: 5px 20px;
@@ -33,11 +39,14 @@ div.category{
   .subcat {
     display: inline-block;
     background: rgba(0,0,0,0.05);
-    padding: 10px;
+    padding: 8px 10px;
     margin: 5px 10px;
+    font-size: 15px;
+    font-family: 'Arial' ;
+    font-weight: 700;
     text-align: center;
     border-radius: 3px;
-    transition: 0.2s ease-in;
+    transition: $norm-speed;
     cursor: pointer;
     &:hover{
       background: rgba(255,255,255,0.5);
@@ -53,14 +62,113 @@ ul.category{
 ul.pageItem {
   max-width: 80vw;
   list-style-type: none;
+  margin: 0;
+  padding-left: 20px;
   li {
-    padding:10px 0px;
+    padding: 10px 0px;
+  }
+  a {
     cursor: pointer;
     font-size: 25px;
-    transition: 0.2s ease-in;
+    transition: $norm-speed;
     &:hover{
       color: #fff;
-      transform: translateX(10px);
     };
   }
+  .hearted {
+    margin-left: 7px;
+    transition: $norm-speed;
+    &:hover{
+      transform: scale(1.5);
+    };
+  }
+}
+.bookmarkContainer{
+  width: 30vw;
+}
+.bookmarkRecord{
+  font-size: 10px;
+  padding-left: 30px;
+  color: rgba(0,0,0,0.5);
+  margin: 0;
+}
+ul.bookmarkList{
+  width: 100%;
+  list-style-type: none;
+  letter-spacing: 2px;
+  .hearted {
+    padding: 5px 0px;
+    font-size: 20px;
+  }
+  .close {
+    font-size: 15px;
+    margin-left: 5px;
+  }
+  a {
+    cursor: pointer;
+    font-size: 20px;
+    color: rgba(255, 255, 255, 0.9);
+    transition: $norm-speed;
+    &:hover{
+      opacity: 0.5;
+    };
+  }
+}
+.hearted{
+  color: rgba(200,20,20,1);
+  font-size: 30px;
+}
+.float-right{
+  float: right;
+}
+.close{
+  margin: 10px 25px 0 0;
+  .material-icons{
+    cursor: pointer;
+    font-size: 40px;
+    transition: $norm-speed;
+    &:hover{
+      opacity: 0.1;
+    };
+  }
+}
+.utilBar{
+  padding: 20px;
+  margin-bottom: 10px;
+  text-align: right;
+
+  a.navLink{
+    cursor: pointer;
+    background: rgba(255,255,255,0.5);
+    padding: 20px 50px 15px 50px;
+    border-radius: 5px;
+    transition: $norm-speed;
+    &:hover{
+      background: rgba(255,255,255,0.1);
+    };
+  }
+}
+
+.material-icons {
+  font-family: 'Material Icons';
+  font-weight: normal;
+  font-style: normal;
+  display: inline-block;
+  line-height: 1;
+  text-transform: none;
+  letter-spacing: normal;
+  word-wrap: normal;
+  white-space: nowrap;
+  direction: ltr;
+
+  /* Support for all WebKit browsers. */
+  -webkit-font-smoothing: antialiased;
+  /* Support for Safari and Chrome. */
+  text-rendering: optimizeLegibility;
+
+  /* Support for Firefox. */
+  -moz-osx-font-smoothing: grayscale;
+
+  /* Support for IE. */
+  font-feature-settings: 'liga';
 }

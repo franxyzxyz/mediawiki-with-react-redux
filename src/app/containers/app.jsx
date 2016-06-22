@@ -5,6 +5,8 @@ import { selectTitle, fetchPagesIfNeeded } from '../actions'
 import ItemLink from '../containers/itemAction'
 import FetchPage from '../containers/fetchpage'
 import FetchImage from '../containers/fetchimage'
+import FetchBookmark from '../containers/fetchbookmark'
+import CloseBookmark from '../containers/closebookmark'
 
 const pageList = ['Monkey Majik','React (JavaScript library)','Node.js','Underscore.js','Neo4j','Badminton','D3.js','HAECO','Aeronautics','Hong Kong']
 
@@ -27,15 +29,24 @@ class Wrapper extends Component {
   }
 
   render() {
-    const { selectedPage, pages, isFetching } = this.props
+    const { selectedPage, pages, isFetching, showBookmark, bookmarkList } = this.props
     return (
       <div className="contentWrapper">
         <div className="pageNav">
-          <ul className="pageItem">
-          {pageList.map((page, i) =>
-            <ItemLink item={page}  key={i}/>
-          )}
-          </ul>
+          {showBookmark &&
+          <div className="bookmarkContainer">
+            <CloseBookmark />
+            <h2>BOOKMARKED PAGES</h2>
+            <FetchBookmark bookmarkList={bookmarkList}/>
+          </div>
+          }
+          {!showBookmark &&
+            <ul className="pageItem">
+            {pageList.map((page, i) =>
+              <ItemLink item={page}  key={i}/>
+            )}
+            </ul>
+          }
         </div>
         <div className="pageContent">
           <FetchPage pages={pages} />
@@ -50,12 +61,14 @@ Wrapper.propTypes = {
   pages: PropTypes.any.isRequired,
   selectedPage: PropTypes.string.isRequired,
   isFetching: PropTypes.bool.isRequired,
-  dispatch: PropTypes.func.isRequired
+  dispatch: PropTypes.func.isRequired,
+  showBookmark: PropTypes.bool.isRequired
 }
 
 function mapStateToProps(state) {
   // connecting state datat to the components as props
-  const { selectedPage, pagesByTitle } = state
+  const { selectedPage, pagesByTitle, showBookmark, bookmarkList } = state
+
   // Mapping the state props (pagesbytitle) to the components
   const {
     isFetching,
@@ -65,13 +78,13 @@ function mapStateToProps(state) {
     items: []
   }
 
-  const { image } = "abc"
 
   return {
     selectedPage,
     pages,
     isFetching,
-    image
+    showBookmark,
+    bookmarkList
   }
 }
 

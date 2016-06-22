@@ -23,6 +23,19 @@ export function receivePages (title, json) {
   }
 }
 
+export function editBookmark (title){
+  return {
+    type: 'EDIT_BOOKMARK',
+    title
+  }
+}
+
+export function toggleBookmark (){
+  return {
+    type: 'TOGGLE_BOOKMARK'
+  }
+}
+
 export function fetchPages (title) {
   return dispatch => {
     /*

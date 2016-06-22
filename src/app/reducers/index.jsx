@@ -77,11 +77,45 @@ function imageByTitle(state = {}, action){
   }
 }
 
+function showBookmark(state = false, action) {
+  switch (action.type) {
+    case 'TOGGLE_BOOKMARK':
+      return !state
+    default:
+      return state
+  }
+}
+
+function bookmark(state, action){
+  switch(action.type) {
+    case 'EDIT_BOOKMARK':
+      return action.title
+    default:
+      return state
+  }
+}
+
+function bookmarkList(state = [], action){
+  switch (action.type) {
+    case 'EDIT_BOOKMARK':
+      if (_.indexOf(state, action.title) !== -1) {
+        return _.without(state, action.title)
+      }
+      return [
+        ...state,
+        bookmark(undefined, action)
+      ]
+    default:
+      return state
+  }
+}
 
 const rootReducer = combineReducers({
   pagesByTitle,
   selectedPage,
-  imageByTitle
+  imageByTitle,
+  showBookmark,
+  bookmarkList
 })
 
 export default rootReducer
