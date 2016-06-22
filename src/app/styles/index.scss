@@ -8,13 +8,52 @@ h1 {
   text-align: right;
   padding: 0 20px 0 0;
 }
+.contentWrapper{
+  display: -webkit-flex;
+  display: flex;
+  div {
+    display:inline-block;
+    min-width: 300px;
+  }
+  .pageNav {
+    background: orange;
+    width: 30vw;
+  }
+  .pageContent {
+    padding: 5px 20px;
+    width: 70vw;
+    background: rgba(0,0,0,0.1);
+    text-align: right;
+    h1 {
+      color: #fff;
+    }
+  }
+}
+div.category{
+  .subcat {
+    display: inline-block;
+    background: rgba(0,0,0,0.05);
+    padding: 10px;
+    margin: 5px 10px;
+    text-align: center;
+    border-radius: 3px;
+    transition: 0.2s ease-in;
+    cursor: pointer;
+    &:hover{
+      background: rgba(255,255,255,0.5);
+    };
+  }
+}
+ul.category{
+  list-style-type: none;
+}
 ul.pageItem {
   max-width: 80vw;
   list-style-type: none;
   li {
     padding:10px 0px;
     cursor: pointer;
-    font-size: 30px;
+    font-size: 25px;
     transition: 0.2s ease-in;
     &:hover{
       color: #fff;
