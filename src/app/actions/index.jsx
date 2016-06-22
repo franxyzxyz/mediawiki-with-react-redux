@@ -15,11 +15,43 @@ export function requestPages (title) {
   }
 }
 
+export function popUp () {
+  return {
+    type: 'POPUP_ENABLED'
+  }
+}
+
+export function disabledPopUp(){
+  return {
+    type: 'POPUP_DISABLED'
+  }
+}
+
 export function receivePages (title, json) {
   return {
     type: 'RECEIVE_POSTS',
     title,
     pages: json[0]
+  }
+}
+
+export function addBookmark(title){
+  return {
+    type: 'ADD_BOOKMARK',
+    title
+  }
+}
+
+export function editBookmark (title){
+  return {
+    type: 'EDIT_BOOKMARK',
+    title
+  }
+}
+
+export function toggleBookmark (){
+  return {
+    type: 'TOGGLE_BOOKMARK'
   }
 }
 
@@ -58,7 +90,7 @@ export function fetchPagesIfNeeded(title){
   }
 }
 
-export function shouldFetchImage(state, title, imgTitle){
+export function shouldFetchImage(state, title){
   const image = state.imageByTitle[title]
   if (!image){
     return true
@@ -69,7 +101,7 @@ export function shouldFetchImage(state, title, imgTitle){
 
 export function fetchImageIfNeeded(title, imgTitle){
   return (dispatch, getState) => {
-    if (shouldFetchImage(getState(), title, imgTitle)) {
+    if (shouldFetchImage(getState(), title)) {
       return dispatch(fetchImage(title, imgTitle))
     }
   }

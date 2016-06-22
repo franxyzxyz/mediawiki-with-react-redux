@@ -5,3 +5,7 @@ export function trimmer(toRemove, str){
 export function snakeCase(str){
   return str.replace(/ /g,"_")
 }
+
+export function reverseSnakeCase(str){
+  return str.replace(/_/g," ")
+}

@@ -77,11 +77,60 @@ function imageByTitle(state = {}, action){
   }
 }
 
+function showBookmark(state = false, action) {
+  switch (action.type) {
+    case 'TOGGLE_BOOKMARK':
+      return !state
+    default:
+      return state
+  }
+}
+
+function bookmark(state, action){
+  switch(action.type) {
+    case 'ADD_BOOKMARK':
+    case 'EDIT_BOOKMARK':
+      return action.title
+    default:
+      return state
+  }
+}
+
+function popup(state = false, action){
+  switch(action.type){
+    case 'POPUP_ENABLED':
+      return true
+    case 'POPUP_DISABLED':
+      return false
+    default:
+      return state
+  }
+}
+
+function bookmarkList(state = [], action){
+  switch (action.type) {
+    case 'ADD_BOOKMARK':
+      if (_.indexOf(state, action.title) !== -1) {
+        return state
+      }
+      return [
+        ...state,
+        bookmark(undefined, action)
+      ]
+    case 'EDIT_BOOKMARK':
+      return _.without(state, action.title)
+    default:
+      return state
+  }
+}
 
 const rootReducer = combineReducers({
   pagesByTitle,
   selectedPage,
-  imageByTitle
+  imageByTitle,
+  showBookmark,
+  bookmarkList,
+  popup
 })
 
 export default rootReducer
