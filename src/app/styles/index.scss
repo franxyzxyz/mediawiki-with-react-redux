@@ -1,4 +1,5 @@
 $norm-speed: 0.2s ease-in;
+$heart: rgba(200,20,20,1);
 
 body {
   font-family: 'League Spartan', sans-serif;
@@ -25,20 +26,37 @@ h1 {
       letter-spacing: 2px;
     }
   }
+
   .pageContent {
-    padding: 5px 20px;
     width: 70vw;
-    background: rgba(0,0,0,0.1);
+    position: relative;
+    /*background: rgba(0,0,0,0.1);*/
     text-align: right;
     h1 {
       color: #fff;
     }
+    div.deco{
+      width: 100%;
+      background: rgba(255,255,255,0.3);
+      > div {
+        padding: 10px;
+      }
+      /*position: absolute;*/
+      /*top: 0;*/
+      /*left: 0;*/
+      img {
+        margin-right: 20px;
+        padding: 10px;
+      }
+    }
   }
 }
+
 div.category{
+  text-align: center;
   .subcat {
     display: inline-block;
-    background: rgba(0,0,0,0.05);
+    background: rgba(255,255,255,1);
     padding: 8px 10px;
     margin: 5px 10px;
     font-size: 15px;
@@ -115,7 +133,7 @@ ul.bookmarkList{
   }
 }
 .hearted{
-  color: rgba(200,20,20,1);
+  color: $heart;
   font-size: 30px;
 }
 .float-right{
@@ -171,4 +189,20 @@ ul.bookmarkList{
 
   /* Support for IE. */
   font-feature-settings: 'liga';
+}
+
+.popUp{
+  i.material-icons{
+    font-size: 500px;
+    color: $heart;
+  }
+  width: 500px;
+  height: 500px;
+  z-index: 20;
+  position: absolute;
+  top:0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  margin: auto;
 }

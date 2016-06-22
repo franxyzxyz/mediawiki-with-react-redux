@@ -2,6 +2,7 @@ import React, { Component, PropTypes } from 'react'
 import { connect } from 'react-redux'
 import { fetchImageIfNeeded } from '../actions'
 import ImgLink from '../components/image'
+import { trimmer } from '../utilities/helper'
 
 class FetchImage extends Component {
   constructor(props) {
@@ -11,25 +12,16 @@ class FetchImage extends Component {
   componentDidMount() {
     const { dispatch, selectedPage, pageimage } = this.props
     if (pageimage) {
-      dispatch(fetchImageIfNeeded(selectedPage))
+      dispatch(fetchImageIfNeeded(selectedPage, 'File:' + pageimage))
     }
   }
 
   componentWillReceiveProps(nextProps) {
-    const { dispatch, selectedPage } = this.props
-
-    if (!_.isEmpty(nextProps.pageimage)){
-      dispatch(fetchImageIfNeeded(selectedPage, 'File:' + nextProps.pageimage))
-      // console.log(nextProps.pageimage)
+    const { dispatch } = this.props
+    if (!_.isEmpty(nextProps.pageimage) && !nextProps.isFetching) {
+      return dispatch(fetchImageIfNeeded(nextProps.selectedPage, 'File:' +  nextProps.pageimage))
     }
-    // if (!_.isEmpty(nextProps.pages)) {
-    //   let img = nextProps.pages.pageimage? 'File:'+nextProps.pages.pageimage : nextProps.pages.images[0].title;
-    //   if (!_.isEmpty(img)){
-    //     dispatch(fetchImageIfNeeded(nextProps.pages.title, img))
-    //   }
-    // }
   }
-
 
   render() {
     const { image } = this.props
@@ -45,15 +37,24 @@ FetchImage.propTypes = {
 }
 
 const mapStateToProps = (state, ownProps) => {
-  const { imageByTitle, selectedPage } = state
+  const { imageByTitle, selectedPage, pagesByTitle } = state
   const { image } = imageByTitle[selectedPage] || {
     image: ""
   }
+  const {
+    isFetching,
+  } = pagesByTitle[selectedPage] || {
+    isFetching: true
+  }
+
+  const pageimage = !_.isEmpty(ownProps.pageimage)? (ownProps.pageimage.pageimage || trimmer('File:', _.sample(ownProps.pageimage.images).title)) : "";
 
   return {
     image: image,
     selectedPage,
-    pageimage: ownProps.pageimage || ""
+    pagesByTitle,
+    isFetching,
+    pageimage: pageimage
   }
 }
 

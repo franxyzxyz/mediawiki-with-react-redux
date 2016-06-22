@@ -29,7 +29,13 @@ class Wrapper extends Component {
   }
 
   render() {
-    const { selectedPage, pages, isFetching, showBookmark, bookmarkList } = this.props
+    const { selectedPage, pages, isFetching, showBookmark, bookmarkList, imageByTitle } = this.props
+    const { image } = imageByTitle[selectedPage] || { image: ""}
+    const style = {
+      backgroundImage: 'url(' + image + ')',
+      backgroundRepeat: 'no-repeat',
+      backgroundSize: 'cover'
+    }
     return (
       <div className="contentWrapper">
         <div className="pageNav">
@@ -48,9 +54,11 @@ class Wrapper extends Component {
             </ul>
           }
         </div>
-        <div className="pageContent">
-          <FetchPage pages={pages} />
-          <FetchImage pageimage={pages.pageimage}/>
+        <div className="pageContent" style={style}>
+          <div className="deco">
+            <FetchPage pages={pages}/>
+            <FetchImage pageimage={pages}/>
+          </div>
         </div>
       </div>
     )
@@ -67,7 +75,7 @@ Wrapper.propTypes = {
 
 function mapStateToProps(state) {
   // connecting state datat to the components as props
-  const { selectedPage, pagesByTitle, showBookmark, bookmarkList } = state
+  const { selectedPage, pagesByTitle, showBookmark, bookmarkList, imageByTitle } = state
 
   // Mapping the state props (pagesbytitle) to the components
   const {
@@ -77,14 +85,16 @@ function mapStateToProps(state) {
     isFetching: true,
     items: []
   }
-
+  // console.log(pages)
+  // const pageimage = pages.pageimage? 'File:' + pages.pageimage : (_.sample(pages.images).title || "")
 
   return {
     selectedPage,
     pages,
     isFetching,
     showBookmark,
-    bookmarkList
+    bookmarkList,
+    imageByTitle
   }
 }
 

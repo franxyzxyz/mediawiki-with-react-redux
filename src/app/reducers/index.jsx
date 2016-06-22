@@ -88,6 +88,7 @@ function showBookmark(state = false, action) {
 
 function bookmark(state, action){
   switch(action.type) {
+    case 'ADD_BOOKMARK':
     case 'EDIT_BOOKMARK':
       return action.title
     default:
@@ -95,16 +96,29 @@ function bookmark(state, action){
   }
 }
 
+function popup(state = false, action){
+  switch(action.type){
+    case 'POPUP_ENABLED':
+      return true
+    case 'POPUP_DISABLED':
+      return false
+    default:
+      return state
+  }
+}
+
 function bookmarkList(state = [], action){
   switch (action.type) {
-    case 'EDIT_BOOKMARK':
+    case 'ADD_BOOKMARK':
       if (_.indexOf(state, action.title) !== -1) {
-        return _.without(state, action.title)
+        return state
       }
       return [
         ...state,
         bookmark(undefined, action)
       ]
+    case 'EDIT_BOOKMARK':
+      return _.without(state, action.title)
     default:
       return state
   }
@@ -115,7 +129,8 @@ const rootReducer = combineReducers({
   selectedPage,
   imageByTitle,
   showBookmark,
-  bookmarkList
+  bookmarkList,
+  popup
 })
 
 export default rootReducer
