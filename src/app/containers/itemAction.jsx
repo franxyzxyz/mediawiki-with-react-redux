@@ -1,6 +1,7 @@
 import { connect } from 'react-redux'
 import { fetchPagesIfNeeded, fetchPages, selectTitle } from '../actions'
 import Item from '../components/item'
+import { snakeCase } from '../utilities/helper'
 
 const mapStateToProps = (state, ownProps) => {
   return {
@@ -12,7 +13,7 @@ const mapStateToProps = (state, ownProps) => {
 const mapDispatchToProps = (dispatch, ownProps) => {
   return {
     onClick: () => {
-      dispatch(selectTitle(ownProps.item))
+      dispatch(selectTitle(snakeCase(ownProps.item)))
     }
   }
 }
