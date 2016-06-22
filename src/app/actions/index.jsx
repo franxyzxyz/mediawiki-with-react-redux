@@ -57,3 +57,52 @@ export function fetchPagesIfNeeded(title){
     }
   }
 }
+
+export function shouldFetchImage(state, title, imgTitle){
+  const image = state.imageByTitle[title]
+  if (!image){
+    return true
+  } else if (image.isFetchingImage) {
+    return false
+  }
+}
+
+export function fetchImageIfNeeded(title, imgTitle){
+  return (dispatch, getState) => {
+    if (shouldFetchImage(getState(), title, imgTitle)) {
+      return dispatch(fetchImage(title, imgTitle))
+    }
+  }
+}
+
+
+/**
+ * Image Request/Receive action creator
+ */
+export function requestImages (imgTitle){
+  return {
+    type: 'REQUEST_IMAGE',
+    imgTitle
+  }
+}
+
+export function receiveImages (title, imgTitle, image){
+  return {
+    type: 'RECEIVE_IMAGE',
+    imgTitle,
+    title,
+    image: image
+  }
+}
+
+
+export function fetchImage (title, imgTitle) {
+  return dispatch => {
+    dispatch(requestImages(imgTitle))
+    return $.getJSON(`http://en.wikipedia.org/w/api.php?action=query&prop=imageinfo&iiprop=url&titles=${imgTitle}&format=json&callback=?`)
+      .then(function(res){
+        dispatch(receiveImages(title, imgTitle, _.values(res.query.pages)[0].imageinfo[0].url))
+      })
+  }
+}
+

@@ -4,8 +4,9 @@ import { selectTitle, fetchPagesIfNeeded } from '../actions'
 
 import ItemLink from '../containers/itemAction'
 import FetchPage from '../containers/fetchpage'
+import FetchImage from '../containers/fetchimage'
 
-const pageList = ['Monkey_Majik','React_(JavaScript_library)','Node.js','Lodash','Neo4j','Badminton','D3.js','HAECO','Aeronautics','Hong_Kong']
+const pageList = ['Monkey Majik','React (JavaScript library)','Node.js','Underscore.js','Neo4j','Badminton','D3.js','HAECO','Aeronautics','Hong Kong']
 
 class Wrapper extends Component {
   constructor(props) {
@@ -27,7 +28,6 @@ class Wrapper extends Component {
 
   render() {
     const { selectedPage, pages, isFetching } = this.props
-
     return (
       <div className="contentWrapper">
         <div className="pageNav">
@@ -39,6 +39,7 @@ class Wrapper extends Component {
         </div>
         <div className="pageContent">
           <FetchPage pages={pages} />
+          <FetchImage pageimage={pages.pageimage}/>
         </div>
       </div>
     )
@@ -64,10 +65,13 @@ function mapStateToProps(state) {
     items: []
   }
 
+  const { image } = "abc"
+
   return {
     selectedPage,
     pages,
-    isFetching
+    isFetching,
+    image
   }
 }
 

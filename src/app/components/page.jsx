@@ -1,9 +1,10 @@
 import React, { PropTypes, Component } from 'react'
 import { trimmer } from '../utilities/helper'
+
 export default class Pages extends Component {
 
   render() {
-    const { title, images, categories } = this.props.pages
+    const { title, categories, images } = this.props.pages
     return (
       <div>
         <h1>{ title }</h1>
@@ -12,7 +13,6 @@ export default class Pages extends Component {
             <div key={i} className="subcat"> { trimmer("Category:", cat.title) }</div>
           )
         }
-
         </div>
       </div>
     )

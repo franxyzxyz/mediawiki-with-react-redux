@@ -1,5 +1,6 @@
 import React from 'react'
 import { combineReducers } from 'redux'
+import { snakeCase } from '../utilities/helper'
 
 function selectedPage (state = 'Monkey_Majik', action){
   switch(action.type) {
@@ -44,9 +45,43 @@ function pagesByTitle(state = {}, action){
 }
 
 
+function getImage (state = {
+  isFetchingImage: false,
+  image: "",
+  imgTitle: ""
+}, action){
+  switch(action.type){
+    case 'REQUEST_IMAGE':
+      return _.assign({}, state, {
+        isFetchingImage: true
+      })
+    case 'RECEIVE_IMAGE':
+      return _.assign({}, state, {
+        isFetchingImage: false,
+        image: action.image,
+        imgTitle: action.imgTitle
+      })
+  }
+}
+
+function imageByTitle(state = {}, action){
+  switch (action.type) {
+    case 'REQUEST_IMAGE':
+    case 'RECEIVE_IMAGE':
+      if (!action.title) return state
+      return _.assign({}, state, {
+        [snakeCase(action.title)]: getImage(state[snakeCase(action.title)], action)
+      })
+    default:
+      return state
+  }
+}
+
+
 const rootReducer = combineReducers({
   pagesByTitle,
-  selectedPage
+  selectedPage,
+  imageByTitle
 })
 
 export default rootReducer
