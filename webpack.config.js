@@ -2,6 +2,7 @@
 
 const webpack = require( 'webpack')
 const path = require('path')
+const merge = require( 'webpack-merge')
 const NpmInstallPlugin = require('npm-install-webpack-plugin')
 
 const TARGET = process.env.npm_lifecycle_event;
@@ -31,7 +32,7 @@ const common = {
         exclude: /(node_modules)/,
         loader: 'babel-loader',
         query: {
-          presets: ['es2015', 'react', 'react-hmre']
+          presets: ['es2015', 'react' ]
         }
       },
       {
@@ -40,27 +41,49 @@ const common = {
       },
       {
         test: /\.(eot|svg|ttf|woff|woff2)$/,
-        loader: 'file?name=src/app/fonts/[name].[ext]'
+        loader: 'file?name=assets/[name].[ext]'
       }
 
     ]
   },
-  devtool: 'eval-source-map',
-  devServer: {
-    contentBase: PATHS.build,
-    progress: true,
-    hot: true,
-    inline: true
-  },
-  plugins: [
-    new webpack.HotModuleReplacementPlugin(),
-    new NpmInstallPlugin(),
-    new webpack.ProvidePlugin({
-      $: "jquery",
-      _: "lodash"
-    })
-  ]
-
 }
 
-module.exports = common
+switch (TARGET) {
+  case 'bundle':
+    module.exports =  merge(common, {
+      devtool: 'eval-source-map',
+      devServer: {
+        contentBase: PATHS.build,
+        progress: true,
+        hot: true,
+        inline: true
+      },
+      plugins: [
+        new webpack.HotModuleReplacementPlugin(),
+        new NpmInstallPlugin(),
+        new webpack.ProvidePlugin({
+          $: "jquery",
+          _: "lodash"
+        })
+      ]
+    });
+    break;
+  case 'build':
+  case 'start':
+    module.exports =  merge(common, {
+      plugins: [
+        new webpack.optimize.UglifyJsPlugin({
+          compress: {
+            warnings: false
+          }
+        }),
+        new webpack.DefinePlugin({
+          'process.env.NODE_ENV': '"production"'
+        }),
+        new webpack.ProvidePlugin({
+          $: "jquery",
+          _: "lodash"
+        })
+      ]
+    });
+}
