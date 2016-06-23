@@ -11,8 +11,9 @@ $ cd mediawiki-with-react-redux
 $ npm install
 $ npm start
 ```
+Go to [http://localhost:3000/](http://localhost:3000/) for the app
 
-### Tech
+### Tech/Stacks
 
 * **React** - View rendering
 * **Redux** - Manage state
