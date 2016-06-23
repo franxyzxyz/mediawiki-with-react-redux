@@ -35,19 +35,6 @@ const mergeProps = (stateProps, dispatchProps, ownProps) => {
 
 }
 
-const mapDispatchToProps = (dispatch, ownProps) => {
-  return {
-    onClick: () => {
-      dispatch(selectTitle(snakeCase(ownProps.item)))
-    },
-    onFav: () => {
-      dispatch(editBookmark(snakeCase(ownProps.item)))
-      dispatch(popUp());
-      setTimeout(() => dispatch(disabledPopUp()), 500)
-    }
-  }
-}
-
 const ItemLink = connect(
   mapStateToProps,
   null,
