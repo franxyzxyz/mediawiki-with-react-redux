@@ -2,7 +2,7 @@
 
 Pocket-wiki is a mini-app that fetch pages via mediawiki API, and user can bookmark pages. This is an experimental SPA with react and redux, and with build-tool webpack.
 
-You can find the presentation slide from [HERE](https://slides.com/francesng/ppocket-wiki-app/live#/)
+You can find the presentation slide from [slides.com](https://slides.com/francesng/ppocket-wiki-app#/)
 
 ### Installation
 ```sh
